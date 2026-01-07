@@ -158,6 +158,11 @@
       }
     }
     const visibleItems = items.filter(isRendered);
+    const firstItem = visibleItems.at(0);
+    if (firstItem && isSeparator(firstItem)) {
+      firstItem.dataset.autoHideSeparator = "true";
+      firstItem.style.display = "none";
+    }
     const lastItem = visibleItems.at(-1);
     if (lastItem && isSeparator(lastItem)) {
       lastItem.dataset.autoHideSeparator = "true";
