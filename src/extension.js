@@ -189,11 +189,44 @@ function activate(context) {
 		const config = vscode.workspace.getConfiguration('custom-contextmenu');
 		const selectors = config.get('selectors');
 		const normalizedSelectors = Array.isArray(selectors) ? selectors : [];
+		const formattedSelectors = normalizedSelectors
+			.filter((selector) => typeof selector === 'string')
+			.map((selector) => formatSelector(selector));
 		fileContent = fileContent.replace(
 			'%selectors%',
-			JSON.stringify(normalizedSelectors)
+			JSON.stringify(formattedSelectors)
 		);
 		return `<script>${fileContent}</script>`;
+	}
+
+	function formatSelector(selector) {
+		const trimmed = selector.trim();
+		if (!trimmed) {
+			return trimmed;
+		}
+		if (trimmed.includes('"')) {
+			return trimmed;
+		}
+		if (trimmed === "_") {
+			return '"_"';
+		}
+		const separatorBeforeMatch = trimmed.match(/^_:\s*has\(\s*\+\s*(.+?)\s*\)$/);
+		if (separatorBeforeMatch) {
+			return `"_":has( + ${quoteLabel(separatorBeforeMatch[1])})`;
+		}
+		const separatorAfterMatch = trimmed.match(/^(.+?)\s*\+\s*_$/);
+		if (separatorAfterMatch) {
+			return `${quoteLabel(separatorAfterMatch[1])} + "_"`;
+		}
+		return quoteLabel(trimmed);
+	}
+
+	function quoteLabel(label) {
+		const trimmed = label.trim();
+		if (trimmed.startsWith("^")) {
+			return `^"${trimmed.slice(1)}"`;
+		}
+		return `"${trimmed}"`;
 	}
 
 	function reloadWindow() {

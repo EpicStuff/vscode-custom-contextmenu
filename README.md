@@ -20,31 +20,29 @@ Make the contextmenu of VSCode cleaner!
 
 ### Selectors configuration
 
-Set `custom-contextmenu.selectors` in your VS Code settings to hide context menu items by their aria-label. Each entry is a selector pattern that the extension converts into an attribute selector before filtering the menu items. Examples:
+Set `custom-contextmenu.selectors` in your VS Code settings to hide context menu items by their aria-label. Each entry is a selector pattern that the extension converts into an attribute selector before filtering the menu items. You can now omit the quotes around labels; the extension will add them for you.
 
 ```json
 "custom-contextmenu.selectors": [
-  "^\"Go to\"",
-  "\"Cut\"",
-  "\"Copy\"",
-  "\"Paste\"",
-  "\"_\":has( + ^\"Find All\")"
+  "^Go to",
+  "Cut",
+  "Copy",
+  "Paste",
+  "_:has( + ^Find All)"
 ]
 ```
 
-- Plain quoted strings match exact labels (e.g., `"\"Copy\""`).
-- Prefix with `^` to match items that start with a label (e.g., `"^\"Go to\""`).
-- Separators are represented by the placeholder label `"_"`. Use `"_":has( + ...)` to hide the separator that appears before the matched item, and use the `... + "_"` pattern to hide the separator after the matched item.
+- Plain labels match exact labels (e.g., `"Copy"`).
+- Prefix with `^` to match items that start with a label (e.g., `"^Go to"`).
+- Separators are represented by the placeholder label `_`. Use `_:has( + ...)` to hide the separator that appears before the matched item, and use the `... + _` pattern to hide the separator after the matched item.
 
 Separator examples:
 
 ```json
 "custom-contextmenu.selectors": [
-  "\"_\":has( + \"Share\")",
-  "\"Share\" + \"_\""
+  "_:has( + Share)",
+  "Share + _"
 ]
 ```
 
-The first entry hides the separator immediately before the `Share` menu item (when present). The second entry hides the separator immediately after the `Share` menu item (when present).
-
-> Note: each entry must include quoted labels because the selector syntax is matched against aria-label values. You currently need to include the escaped quotes (e.g., `"\"Copy\""`). A future update could add a friendlier syntax, but for now keep the quotes.
+The first entry hides the separator immediately before the `Share` menu item (when present). The second entry hides the separator immediately after the `Share` menu item (when present). If you prefer to use the full quoted syntax, it still works (e.g., `"\"Share\" + \"_\""`).
