@@ -17,3 +17,21 @@ Make the contextmenu of VSCode cleaner!
 1. install this extension in VSCode
 2. open Command Pallete with `F1` or `ctrl+shift+p`
 3. select `Enable Custom Contextmenu`
+
+### Selectors configuration
+
+Set `custom-contextmenu.selectors` in your VS Code settings to hide context menu items by their aria-label. Each entry is a selector pattern that the extension converts into an attribute selector before filtering the menu items. Examples:
+
+```json
+"custom-contextmenu.selectors": [
+  "^\"Go to\"",
+  "\"Cut\"",
+  "\"Copy\"",
+  "\"Paste\"",
+  "\"_\":has( + ^\"Find All\")"
+]
+```
+
+- Plain quoted strings match exact labels (e.g., `"\"Copy\""`).
+- Prefix with `^` to match items that start with a label (e.g., `"^\"Go to\""`).
+- Use `"_":has( + ...)` to target separators around specific items.

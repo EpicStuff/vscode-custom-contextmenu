@@ -187,10 +187,12 @@ function activate(context) {
 			vscode.window.showErrorMessage(`Error reading file: ${error.message}`);
 		}
 		const config = vscode.workspace.getConfiguration('custom-contextmenu');
-		const showGoTos = config.get('showGoTos');
-		const showClipboardItems = config.get('showClipboardItems');
-		fileContent = fileContent.replace('%showGoTos%', showGoTos);
-		fileContent = fileContent.replace('%showClipboardItems%', showClipboardItems);
+		const selectors = config.get('selectors');
+		const normalizedSelectors = Array.isArray(selectors) ? selectors : [];
+		fileContent = fileContent.replace(
+			'%selectors%',
+			JSON.stringify(normalizedSelectors)
+		);
 		return `<script>${fileContent}</script>`;
 	}
 
