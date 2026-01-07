@@ -15,6 +15,7 @@ Make the contextmenu of VSCode cleaner!
 ## Usage
 
 1. install this extension in VSCode
+1.5. manually set `custom-contextmenu.workbenchPath` (the auto-detection likely does not work) by locating your VS Code installation (e.g., right-click the VS Code shortcut and choose "Open file location"), searching for `workbench.html`/`workbench.esm.html`, then right-clicking the file and choosing "Copy as path"; set that path and re-run `Enable Custom Contextmenu`
 2. open Command Pallete with `F1` or `ctrl+shift+p`
 3. select `Enable Custom Contextmenu`
 
