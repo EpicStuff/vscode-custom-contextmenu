@@ -1,3 +1,11 @@
 .vscode/
 .github/
 .prettierrc.yaml
+.cache/
+.config/
+.local/
+.replit
+.git/
+.gitignore
+node_modules/
+screenshots/
