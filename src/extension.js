@@ -261,9 +261,27 @@ function activate(context) {
 		"custom-contextmenu.uninstallCustomContextmenu",
 		cmdUninstall
 	);
+	const configChangeHandler = vscode.workspace.onDidChangeConfiguration((event) => {
+		if (!event.affectsConfiguration("custom-contextmenu.selectors")) {
+			return;
+		}
+		vscode.window
+			.showInformationMessage(
+				"Custom context menu selectors updated. Re-enable the custom context menu to apply changes.",
+				"Re-enable"
+			)
+			.then((btn) => {
+				if (btn === "Re-enable") {
+					vscode.commands.executeCommand(
+						"custom-contextmenu.installCustomContextmenu"
+					);
+				}
+			});
+	});
 
 	context.subscriptions.push(installCustomCSS);
 	context.subscriptions.push(uninstallCustomCSS);
+	context.subscriptions.push(configChangeHandler);
 
 	console.log("vscode-custom-css is active!");
 	console.log("Application directory", appDir);

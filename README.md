@@ -46,3 +46,7 @@ Separator examples:
 ```
 
 The first entry hides the separator immediately before the `Share` menu item (when present). The second entry hides the separator immediately after the `Share` menu item (when present). If you prefer the fully-quoted syntax, it still works (e.g., `"\"Share\" + \"_\""`).
+
+> Note: `Paste + _` (or `Share + _`) only hides the separator after the item. To hide the menu item itself, add the item label separately (for example, include `"Paste"`).
+
+> Note: after changing `custom-contextmenu.selectors`, re-enable the custom context menu or restart VS Code so the injected script is updated.
