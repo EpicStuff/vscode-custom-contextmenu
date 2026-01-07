@@ -20,29 +20,27 @@ Make the contextmenu of VSCode cleaner!
 
 ### Selectors configuration
 
-Set `custom-contextmenu.selectors` in your VS Code settings to hide context menu items by their aria-label. Each entry is a selector pattern that the extension converts into an attribute selector before filtering the menu items. You can now omit the quotes around labels; the extension will add them for you.
+Set `custom-contextmenu.selectors` in your VS Code settings to hide context menu items by their aria-label. Each entry is a selector pattern that the extension converts into an attribute selector before filtering the menu items. The extension will wrap plain labels in quotes for you.
 
 ```json
 "custom-contextmenu.selectors": [
-  "^Go to",
   "Cut",
   "Copy",
-  "Paste",
-  "_:has( + ^Find All)"
+  "Paste"
 ]
 ```
 
 - Plain labels match exact labels (e.g., `"Copy"`).
-- Prefix with `^` to match items that start with a label (e.g., `"^Go to"`).
-- Separators are represented by the placeholder label `_`. Use `_:has( + ...)` to hide the separator that appears before the matched item, and use the `... + _` pattern to hide the separator after the matched item.
+- Prefix with `^` to match items that start with a label (e.g., `"^Go to"`). For this and other advanced patterns, include the quotes yourself.
+- Separators are represented by the placeholder label `"_"`. Use `"_":has( + ...)` to hide the separator that appears before the matched item, and use the `... + "_"` pattern to hide the separator after the matched item.
 
 Separator examples:
 
 ```json
 "custom-contextmenu.selectors": [
-  "_:has( + Share)",
-  "Share + _"
+  "\"_\":has( + \"Share\")",
+  "\"Share\" + \"_\""
 ]
 ```
 
-The first entry hides the separator immediately before the `Share` menu item (when present). The second entry hides the separator immediately after the `Share` menu item (when present). If you prefer to use the full quoted syntax, it still works (e.g., `"\"Share\" + \"_\""`).
+The first entry hides the separator immediately before the `Share` menu item (when present). The second entry hides the separator immediately after the `Share` menu item (when present).
