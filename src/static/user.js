@@ -106,6 +106,9 @@
         }
       }
       `.replaceAll(/\s+/g, " ");
+    requestAnimationFrame(() => {
+      hideTrailingSeparator(container);
+    });
 
     // fix context menu position
     if (menu.matches(".monaco-submenu")) {
@@ -131,6 +134,24 @@
         }
       }
       menu.style.top = menu_top + "px";
+    }
+  }
+
+  function hideTrailingSeparator(container) {
+    const items = Array.from(container.querySelectorAll(".action-item"));
+    const isSeparator = item =>
+      item.classList.contains("separator") || item.getAttribute("role") === "separator";
+    for (const item of items) {
+      if (item.dataset.autoHideSeparator === "true") {
+        item.style.removeProperty("display");
+        delete item.dataset.autoHideSeparator;
+      }
+    }
+    const visibleItems = items.filter(item => getComputedStyle(item).display !== "none");
+    const lastItem = visibleItems.at(-1);
+    if (lastItem && isSeparator(lastItem)) {
+      lastItem.dataset.autoHideSeparator = "true";
+      lastItem.style.display = "none";
     }
   }
 })();
