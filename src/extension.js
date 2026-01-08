@@ -23,6 +23,15 @@ function activate(context) {
 	const BackupFilePath = uuid => path.join(workbenchDir, `workbench.${uuid}.bak-custom-css`);
 
 	function resolveWorkbenchHtmlFile(appRoot, workbenchPath) {
+		const baseCandidates = appRoot
+			? [
+					path.join(appRoot, "out", "vs", "code"),
+					path.join(appRoot, "out", "vs", "workbench"),
+					path.join(appRoot, "vs", "code"),
+					path.join(appRoot, "vs", "workbench"),
+			  ]
+			: [];
+
 		const htmlCandidates = [
 			"workbench.html",
 			"workbench.esm.html",
@@ -63,13 +72,6 @@ function activate(context) {
 		if (!appRoot) {
 			return null;
 		}
-
-		const baseCandidates = [
-			path.join(appRoot, "out", "vs", "code"),
-			path.join(appRoot, "out", "vs", "workbench"),
-			path.join(appRoot, "vs", "code"),
-			path.join(appRoot, "vs", "workbench"),
-		];
 
 		for (const base of baseCandidates) {
 			const resolved = resolveCandidate(base);
