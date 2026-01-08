@@ -10,10 +10,10 @@
 	"categories": ["Other"],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/EpicStuff/vscode-custom-contextmenu"
+		"url": "https://github.com/EpicStuff/vscode-custom-context-menu"
 	},
 	"bugs": {
-		"url": "https://github.com/EpicStuff/vscode-custom-contextmenu/issues"
+		"url": "https://github.com/EpicStuff/vscode-custom-context-menu/issues"
 	},
 	"preview": true,
 	"icon": "images/logo.png",
@@ -23,11 +23,11 @@
 		"commands": [
 			{
 				"command": "custom-contextmenu.installCustomContextmenu",
-				"title": "Enable Custom Contextmenu"
+				"title": "Enable Custom Context Menu"
 			},
 			{
 				"command": "custom-contextmenu.uninstallCustomContextmenu",
-				"title": "Disable Custom Contextmenu"
+				"title": "Disable Custom Context Menu"
 			}
 		],
 		"configuration": {
