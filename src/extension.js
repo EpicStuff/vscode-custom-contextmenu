@@ -24,10 +24,12 @@ function activate(context) {
 
 	function resolveWorkbenchHtmlFile(appRoot, workbenchPath) {
 		const htmlCandidates = [
-			path.join("electron-sandbox", "workbench", "workbench.html"),
-			path.join("electron-sandbox", "workbench", "workbench.esm.html"),
 			"workbench.html",
 			"workbench.esm.html",
+			path.join("electron-browser", "workbench", "workbench.html"),
+			path.join("electron-browser", "workbench", "workbench.esm.html"),
+			path.join("electron-sandbox", "workbench", "workbench.html"),
+			path.join("electron-sandbox", "workbench", "workbench.esm.html"),
 		];
 
 		const resolveCandidate = basePath => {
@@ -62,8 +64,20 @@ function activate(context) {
 			return null;
 		}
 
-		const base = path.join(appRoot, "vs", "code");
-		return resolveCandidate(base);
+		const baseCandidates = [
+			path.join(appRoot, "out", "vs", "code"),
+			path.join(appRoot, "out", "vs", "workbench"),
+			path.join(appRoot, "vs", "code"),
+			path.join(appRoot, "vs", "workbench"),
+		];
+
+		for (const base of baseCandidates) {
+			const resolved = resolveCandidate(base);
+			if (resolved) {
+				return resolved;
+			}
+		}
+		return null;
 	}
 
 	// ####  main commands ######################################################
