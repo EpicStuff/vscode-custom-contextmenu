@@ -4,7 +4,7 @@
     <h1>Custom Contextmenu</h1>
 </div>
 
-Remove any items from VSCode's contextmenu (right click menu)!
+Remove any items from VSCode's contextmenu (right click menu)
 
 ## Screenshots
 
